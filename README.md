@@ -1,10 +1,10 @@
-# NYU HPC
+# NYU HPC
 
 A quick reference to access NYU's High Performance Computing Prince Cluster.
 
 The official wiki is [here](https://wikis.nyu.edu/display/NYUHPC/Clusters+-+Prince), this is an unofficial document created as a quick-start guide for first-time users.
 
-## Get an account
+## Get an account
 
 You need to be affiliated to NYU and have a sponsor. 
 
