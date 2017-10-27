@@ -40,6 +40,10 @@ Scratch it a file system mounted on Prince that is connected to the compute node
 
 `/home` and `/scratch` are separate filesystems, in separate places.
 
+## Install Anaconda
+
+Follow [this](https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-16-04) tutorial to install Anaconda.
+
 ## Request CPU
 
 You can submit batch jobs in prince to schedule jobs. This requires to write custom bash scripts. You can also run in interactive mode:
