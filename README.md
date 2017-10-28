@@ -44,6 +44,27 @@ Scratch it a file system mounted on Prince that is connected to the compute node
 
 Follow [this](https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-16-04) tutorial to install Anaconda.
 
+## Install tensorflow-gpu
+
+installing Tensorflow for GPU's requires NVidia's **CUDA® Toolkit 8.0** and **cuDNN v6** installed.
+To download **CUDA® Toolkit 8.0** use ```wget https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb```
+
+To download **cuDNN v6** you must sign in as an Nvidia developer, alternatively you can use my self-hosted version using ```wget orfleisher.com/downloads/cudnn-8.0-linux-x64-v6.0.tgz```
+
+After downloading you can install **CUDA® Toolkit 8.0** using ```sh ./cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb``` you will be prompted with EULA and questions, you **do not** need display driver or samples.
+
+Set a path variable ```export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}```
+
+Unzip **cuDNN v6** using ```tar -xvzf cudnn-8.0-linux-x64-v6.0.tgz```
+
+To install simply copy the files from the unzipped **cuDNN v6** library to the main cuda library like so
+```cp cuda/lib64/* /usr/local/cuda/lib64/```
+```cp cuda/include/cudnn.h /usr/local/cuda/include/```
+
+You should be good to go after this and can simply install tensorflow-gpu using ```pip3 install --upgrade tensorflow``` 
+
+For a tutorial on installing **CUDA® Toolkit 8.0**, **cuDNN v6** and **tensorflow-gpu**, [follow this](https://medium.com/@acrosson/installing-nvidia-cuda-cudnn-tensorflow-and-keras-69bbf33dce8a) 
+
 ## Request CPU
 
 You can submit batch jobs in prince to schedule jobs. This requires to write custom bash scripts. You can also run in interactive mode:
