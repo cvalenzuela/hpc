@@ -30,7 +30,7 @@ Once logged in, the root should be:
 
 You can get acces to four filesystems: `/home`, `/scratch`, `/archive`, and `/work`.
 
-Scratch it a file system mounted on Prince that is connected to the compute nodes where we can upload files faster. The content gets periodically flushed.
+Scratch is a file system mounted on Prince that is connected to the compute nodes where we can upload files faster. The content gets periodically flushed.
 
 ```zsh
 [NYUNetID@log-0 ~]$ cd /scratch/NYUNetID
