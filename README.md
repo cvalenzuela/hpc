@@ -94,10 +94,10 @@ Installing Tensorflow for GPU's requires NVidia's **CUDA® Toolkit 8.0** and **c
 wget https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda_8.0.61_375.26_linux-run
 ```
 
-2. Download **cuDNN v6**. You must sign in as an Nvidia developer, alternatively you can use my self-hosted version using 
+2. Download **cuDNN v6**. You must sign in as an Nvidia developer [here](https://developer.nvidia.com/rdp/cudnn-download). Once signed in, download **cuDNN v6** with:
 
 ```bash
-wget orfleisher.com/downloads/cudnn-8.0-linux-x64-v6.0.tgz
+wget https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v6/prod/8.0_20170307/cudnn-8.0-linux-x64-v6.0-tgz
 ```
 
 3. After downloading you can install **CUDA® Toolkit 8.0** using 
