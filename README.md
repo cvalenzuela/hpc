@@ -246,6 +246,101 @@ squeue -u $USER
 
 More info [here](https://wikis.nyu.edu/display/NYUHPC/Submitting+jobs+with+sbatch)
 
-# Screen
+## Setting up a tunnel
+
+To copy data between your workstation and the NYU HPC clusters, you must set up and start an SSH tunnel.
+
+What is a tunnel?
+
+> "A tunnel is a mechanism used to ship a foreign protocol across a network that normally wouldn't support it."<sup>[1](http://www.enterprisenetworkingplanet.com/netsp/article.php/3624566/Networking-101-Understanding-Tunneling.htm)</sup>
+
+1. In your local computer root directory, and if you don't have it already, create a folder called `/.shh`:
+```bash
+mkdir ~/.ssh
+```
+
+2. Set the permission to that folder:
+```bash
+chmod 700 ~/.ssh
+```
+
+3. Inside that folder create a new file called `config`:
+```bash
+touch config
+```
+
+4. Open that file in any text editor and add this: 
+```bash
+# first we create the tunnel, with instructions to pass incoming
+# packets on ports 8024, 8025 and 8026 through it and to specific
+# locations
+Host hpcgwtunnel
+   HostName gw.hpc.nyu.edu
+   ForwardX11 no
+   LocalForward 8025 dumbo.hpc.nyu.edu:22
+   LocalForward 8026 prince.hpc.nyu.edu:22
+   User NetID 
+# next we create an alias for incoming packets on the port. The
+# alias corresponds to where the tunnel forwards these packets
+Host dumbo
+  HostName localhost
+  Port 8025
+  ForwardX11 yes
+  User NetID
+
+Host prince
+  HostName localhost
+  Port 8026
+  ForwardX11 yes
+  User NetID
+```
+
+Be sure to replace the `NetID` for your NYU NetId
+
+## Transfer Files
+
+To copy data between your workstation and the NYU HPC clusters, you must set up and start an SSH tunnel. (See previous step)
+
+
+1. Create a tunnel
+```bash
+ssh hpcgwtunnel
+```
+Once executed you'll see something like this:
+
+```bash
+Last login: Wed Nov  8 12:15:48 2017 from 74.65.201.238
+cv965@hpc-bastion1~>$
+```
+
+This will use the settings in `/.ssh/config` to create a tunnel. **You need to leave this open when transfering files**. Leave this terminal tab open and open a new tab to continue the process.
+
+2. Transfer files
+
+### Between your computer and the HPC
+
+- A File:
+```bash
+scp /Users/local/data.txt NYUNetID@prince:/scratch/NYUNetID/path/
+```
+
+- A Folder:
+```bash
+scp -r /Users/local/path NYUNetID@prince:/scratch/NYUNetID/path/
+```
+
+### Between the HPC and your computer
+
+- A File:
+```bash
+scp NYUNetID@prince:/scratch/NYUNetID/path/data.txt /Users/local/path/
+```
+
+- A Folder:
+```bash
+scp -r NYUNetID@prince:/scratch/NYUNetID/path/data.txt /Users/local/path/ 
+```
+
+## Screen
 
 Create a `./.screenrc` file and append this [gist](https://gist.github.com/joaopizani/2718397)
