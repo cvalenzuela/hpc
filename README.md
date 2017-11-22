@@ -44,7 +44,7 @@ ssh prince.hpc.nyu.edu
 
 ## File Systems
 
-You can get acces to four filesystems: `/home`, `/scratch`, `/archive`, and `/work`.
+You can get acces to three filesystems: `/home`, `/scratch`, and `/archive`.
 
 Scratch is a file system mounted on Prince that is connected to the compute nodes where we can upload files faster. Notice that the content gets periodically flushed.
 
@@ -139,7 +139,9 @@ For a complete tutorial on installing **CUDA® Toolkit 8.0**, **cuDNN v6** and *
 
 ## Request CPU
 
-You can submit batch jobs in prince to schedule jobs. This requires to write custom bash scripts. You can also run in interactive mode:
+You can submit batch jobs in prince to schedule jobs. You can submit batch jobs in prince to schedule jobs. This requires to write custom bash scripts. Batch jobs are great for longer jobs, and you can also run in interactive mode, which is great for short jobs and troubleshooting.
+
+To run in interactive mode:
 
 ```bash 
 [NYUNetID@log-0 ~]$ srun --pty /bin/bash
