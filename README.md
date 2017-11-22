@@ -56,90 +56,60 @@ Scratch is a file system mounted on Prince that is connected to the compute node
 
 `/home` and `/scratch` are separate filesystems in separate places, but you should use `/scratch` to store your files.
 
-## Install Anaconda
+## Loading Modules
 
-1. Download Anaconda. Check for the latest version [here](https://www.anaconda.com/download/#linux):
+Slurm allows you to load and manage multiple versions and configurations of software packages.
 
+To see available package environments:
 ```bash
-curl -O https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh
+module avail
 ```
 
-2. Install
-
+To load a model:
 ```bash
-bash Anaconda3-4.2.0-Linux-x86_64.sh
+module load [package name]
 ```
 
-3. Activate the installation
-
+For example if you want to use Tensorflow-gpu:
 ```bash
-source ~/.bashrc
+module load cudnn/8.0v6.0
+module load cuda/8.0.44
+module load tensorflow/python3.6/1.3.0
 ```
 
-4. Create an environment:
-
+To check what is currently loaded:
 ```bash
-conda create --name my_env python=3
+module list
 ```
 
-A complete tutorial is [here](https://www.digitalocean.com/community/tutorials/how-to-install-the-anaconda-python-distribution-on-ubuntu-16-04)
-
-## Install tensorflow-gpu
-
-Installing Tensorflow for GPU's requires NVidia's **CUDA® Toolkit 8.0** and **cuDNN v6** installed.
-
-1. Download **CUDA® Toolkit 8.0**: 
-
-```
-wget https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda_8.0.61_375.26_linux-run
-```
-
-2. Download **cuDNN v6**. You must sign in as an Nvidia developer [here](https://developer.nvidia.com/rdp/cudnn-download). Once signed in, download **cuDNN v6** with:
-
+To remove all packages:
 ```bash
-wget https://developer.nvidia.com/compute/machine-learning/cudnn/secure/v6/prod/8.0_20170307/cudnn-8.0-linux-x64-v6.0-tgz
+module purge
 ```
 
-3. After downloading you can install **CUDA® Toolkit 8.0** using 
-
+To get helpful information about the package:
 ```bash
-sh ./cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb
-``` 
-you will be prompted with EULA and questions, you **do not need display driver or samples.**
-
-4. Set a path variable in your ./.bashrc file:
-
+module show torch/gnu/20170504
+```
+Will print something like 
 ```bash
-export LD_LIBRARY_PATH="/home/cv965/cuda/lib64:$LD_LIBRARY_PATH"
+--------------------------------------------------------------------------------------------------------------------------------------------------
+   /share/apps/modulefiles/torch/gnu/20170504.lua:
+--------------------------------------------------------------------------------------------------------------------------------------------------
+whatis("Torch: a scientific computing framework with wide support for machine learning algorithms that puts GPUs first")
+whatis("Name: torch version: 20170504 compilers: gnu")
+load("cmake/intel/3.7.1")
+load("cuda/8.0.44")
+load("cudnn/8.0v5.1")
+load("magma/intel/2.2.0")
+...
 ```
+`load(...)` are the dependencies that are also loaded when you load a package.
 
-5. Unzip **cuDNN v6** using 
 
-```bash
-tar -xvzf cudnn-8.0-linux-x64-v6.0.tgz
-```
+## Interactive Mode: Request CPU
 
-6. To install simply copy the files from the unzipped **cuDNN v6** library to the main cuda library like so:
-
-```
-cp cuda/lib64/* /usr/local/cuda/lib64/
-```
-```
-cp cuda/include/cudnn.h /usr/local/cuda/include/
-```
-
-You should be good to go after this and can simply install tensorflow-gpu using 
-
-```bash
-source activate yourEnv
-pip3 install --upgrade tensorflow
-``` 
-
-For a complete tutorial on installing **CUDA® Toolkit 8.0**, **cuDNN v6** and **tensorflow-gpu**, [follow this](https://medium.com/@acrosson/installing-nvidia-cuda-cudnn-tensorflow-and-keras-69bbf33dce8a) 
-
-## Request CPU
-
-You can submit batch jobs in prince to schedule jobs. You can submit batch jobs in prince to schedule jobs. This requires to write custom bash scripts. Batch jobs are great for longer jobs, and you can also run in interactive mode, which is great for short jobs and troubleshooting.
+You can submit batch jobs in prince to schedule jobs. This requires to write custom bash scripts. Batch jobs are great for longer jobs, and you can also run in interactive mode, which is great for short jobs and troubleshooting.
 
 To run in interactive mode:
 
@@ -164,7 +134,7 @@ To exit a request:
 [NYUNetID@log-0 ~]$
 ```
 
-## Request GPU
+## Interactive Mode: Request GPU
 
 ```bash
 [NYUNetID@log-0 ~]$ srun --gres=gpu:1 --pty /bin/bash
