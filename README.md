@@ -28,7 +28,7 @@ Once logged in, the root should be:
 /home/NYUNetID
 ```
 
-2. An off-campus location:
+2. From an off-campus location:
 
 First, login to the bastion host:
 
